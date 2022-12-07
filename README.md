@@ -3,10 +3,19 @@ Demos end to end setup of DNS Zone to AAG to AKS with App gateway Ingress Contro
 
 # Tech used
 
-- Azure DNS Zone
-- Azure App Gateway
-- AKS
+- Azure 
+  - Azure Public IP Address
+  - Azure DNS Zone 
+  - Azure user-assigned managed identity
+  - Azure RBAC
+  - Azure App Gateway
+- AKS/Kubernetes
+  - AGIC - ingress
   - cert-manager
-  - AGIC
-- LetsEncrypt
+  - cert-manager
+- SSL
+  - LetsEncrypt
+- Automation
+  - Bicep as IAC
+  - PowerShell for scripting
 
