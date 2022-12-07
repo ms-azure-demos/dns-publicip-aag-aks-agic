@@ -1,0 +1,2 @@
+. ./00-env-params.ps1
+az deployment group create -f ../biceps/aks.bicep -g $resourceGroup -p aagName=$aagName -p clusterName=$clusterName -p aksSubnetName=$aksSubnetName -p vNetName=$vNetName  #--what-if

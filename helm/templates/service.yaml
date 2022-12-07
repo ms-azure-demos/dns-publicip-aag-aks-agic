@@ -1,0 +1,17 @@
+{{- $portName := include "syntheticapi.portName" . -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: "syntheticapi"
+  namespace: {{ .Values.namespace}}
+  labels:
+    {{- include "syntheticapi.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+      name: {{ $portName }}
+  selector:
+    {{- include "syntheticapi.selectorLabels" . | nindent 4 }}
