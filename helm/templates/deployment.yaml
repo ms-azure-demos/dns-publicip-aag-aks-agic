@@ -7,9 +7,7 @@ metadata:
   labels:
     {{- include "syntheticapi.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  replicas: 2
   selector:
     matchLabels:
       {{- include "syntheticapi.selectorLabels" . | nindent 6 }}
@@ -43,33 +41,6 @@ spec:
             - name: {{ $portName }}
               containerPort: 80
               protocol: TCP
-          {{- with .Values.livenessProbe}}
-          livenessProbe:
-            httpGet:
-              path: {{ .httpGet.path | default "/" | quote }}
-              port: {{ $portName }}
-            failureThreshold: {{ .failureThreshold | default 1 }}
-            initialDelaySeconds: {{ .initialDelaySeconds | default 10 }}
-            periodSeconds: {{ .periodSeconds | default 10 }}
-          {{- end }}
-          {{- with .Values.readinessProbe}}
-          readinessProbe:
-            httpGet:
-              path: {{ .httpGet.path | default "/" | quote }}
-              port: {{ $portName }}
-            failureThreshold: {{ .failureThreshold | default 1 }}
-            initialDelaySeconds: {{ .initialDelaySeconds | default 10 }}
-            periodSeconds: {{ .periodSeconds | default 10 }}
-          {{- end }}
-          {{- with .Values.startupProbe}}
-          startupProbe:
-            httpGet:
-              path: {{ .httpGet.path | default "/" | quote }}
-              port:  {{ $portName }}
-            failureThreshold: {{ .failureThreshold | default 1 }}
-            initialDelaySeconds: {{ .initialDelaySeconds | default 10 }}
-            periodSeconds: {{ .periodSeconds | default 10 }}
-          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
