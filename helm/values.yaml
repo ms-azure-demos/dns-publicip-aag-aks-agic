@@ -39,18 +39,10 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-application-gateway
     cert-manager.io/acme-challenge-type: http01
   hosts:
-  - host: syntheticapi.baborbird.com
+  - host: mysubdomain.mydomain.com
   tls:
   - hosts:
-    - syntheticapi.baborbird.com
-
-resources: 
-  requests:
-    memory: "128Mi"
-    cpu: "250m"
-  limits:
-    memory: "256Mi"
-    cpu: "500m"
+    - mysubdomain.mydomain.com
 
 nodeSelector:
   "beta.kubernetes.io/os": linux
@@ -85,7 +77,4 @@ env:
   valueFrom:
     fieldRef:
       fieldPath: status.hostIP
-
-tolerations: []
-
 affinity: {}
